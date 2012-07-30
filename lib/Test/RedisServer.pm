@@ -188,15 +188,105 @@ __END__
 
 =head1 NAME
 
-Test::RedisServer - 
+Test::RedisServer - redis-server runner for tests.
 
 =head1 SYNOPSIS
 
-use Redis;
-use Test::RedisServer;
-use Test::More;
+    use Redis;
+    use Test::RedisServer;
+    use Test::More;
+    
+    my $redis_server;
+    eval {
+        $redis_server = Test::RedisServer->new;
+    } or plan skip_all => 'redis-server is required to this test';
+    
+    my $redis = Redis->new( $redis_server->connect_info );
+    
+    is $redis->ping, 'PONG', 'ping pong ok';
+    
+    done_testing;
 
-my $redis_server = Test::RedisServer->new;
+=head1 DESCRIPTION
 
-my $redis = Redis->new( $redis_server->connect_info );
+=head1 METHODS
 
+=head2 new(%options)
+
+    my $redis_server = Test::RedisServer->new(%options);
+
+Create a new redis-server instance, and start it by default (auto_start option avoid this)
+
+Available options are:
+
+=over
+
+=item * auto_start => 0 | 1 (Default: 1)
+
+Automatically start redis-server instance (by default).
+You can disable this feature by C<<auto_start => 0>>, and start instance manually by C<start> method below.
+
+=item * conf => 'HashRef'
+
+This is redis.conf key value pair. Any key-value pair supported that redis-server supports.
+
+If you want to use this redis.conf:
+
+    port 9999
+    databases 16
+    save 900 1
+
+Your conf parameter will be:
+
+    Test::RedisServer->new( conf => {
+        port      => 9999,
+        databases => 16,
+        save      => '900 1',
+    });
+
+=item * timeout => 'Int'
+
+Timeout seconds detecting redis-server is awake or not. (Default: 3)
+
+=back
+
+=head2 start
+
+Start redis-server instance manually.
+
+=head2 stop
+
+Stop redis-server instance.
+
+This method automatically called when object was DESTROY.
+
+=head2 connect_info
+
+Return connection info for client library to connect this redis-server instance.
+
+This parameter is designed to pass directly to L<Redis> module.
+
+    my $redis_server = Test::RedisServer->new;
+    my $redis = Redis->new( $redis_server->connect_info );
+
+=head1 INTERNAL METHODS
+
+=head2 BUILD
+
+=head2 DEMOLISH
+
+=head1 AUTHOR
+
+Daisuke Murase <typester@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2012 KAYAC Inc. All rights reserved.
+
+This program is free software; you can redistribute
+it and/or modify it under the same terms as Perl itself.
+
+The full text of the license can be found in the
+LICENSE file included with this module.
+
+=cut
