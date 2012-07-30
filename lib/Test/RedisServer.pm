@@ -83,7 +83,7 @@ sub start {
         close $conffh;
 
         exec 'redis-server', "$tmpdir/redis.conf"
-            or croak "failed to launch redis-server:$?";
+            or exit($?);
     }
     close $logfh;
 
