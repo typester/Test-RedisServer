@@ -1,0 +1,3 @@
+language: "perl"
+before_install:
+    - perl Makefile.PL | cpanm
