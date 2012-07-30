@@ -6,6 +6,8 @@ use Test::TCP;
 use Redis;
 use Test::RedisServer;
 
+eval { Test::RedisServer->new } or plan skip_all => 'redis-server is required in PATH to run this test';
+
 # unix socket by default
 my $server = Test::RedisServer->new;
 ok $server->pid, 'pid ok';

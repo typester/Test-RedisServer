@@ -4,6 +4,8 @@ use Test::More;
 
 use Test::RedisServer;
 
+eval { Test::RedisServer->new } or plan skip_all => 'redis-server is required in PATH to run this test';
+
 my $server;
 eval {
     $server = Test::RedisServer->new( conf => {
