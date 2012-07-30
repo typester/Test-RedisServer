@@ -13,4 +13,6 @@ Murase
 KAYAC
 redis
 conf
+memcached
+mysqld
 

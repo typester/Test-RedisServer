@@ -31,6 +31,10 @@ test_requires 'Redis';
 test_requires 'Test::More' => '0.86';
 test_requires 'Test::TCP'  => '1.17';
 
+requires 'perl'       => '5.008001';
+requires 'File::Temp' => '0.19'; # newdir
+requires 'Any::Moose' => '0.18';
+
 readme_from 'lib/Test/RedisServer.pm';
 author_tests 'xt';
 auto_set_repository;

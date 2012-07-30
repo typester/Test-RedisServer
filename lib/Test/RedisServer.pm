@@ -269,6 +269,16 @@ This parameter is designed to pass directly to L<Redis> module.
     my $redis_server = Test::RedisServer->new;
     my $redis = Redis->new( $redis_server->connect_info );
 
+=head1 SEE ALSO
+
+L<Test::mysqld> for mysqld.
+
+L<Test::Memcached> for Memcached.
+
+This module steals lots of stuffs from above modules.
+
+L<Test::Mock::Redis>, another approach for testing redis application.
+
 =head1 INTERNAL METHODS
 
 =head2 BUILD
