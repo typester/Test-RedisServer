@@ -1,4 +1,7 @@
 Revision history for Perl extension Test::RedisServer
 
+0.02 2012-08-01T16:29:38+09:00
+     - added wait_exit method
+
 0.01 2012-07-30T17:40:41+09:00
      - initial version

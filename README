@@ -75,7 +75,7 @@ METHODS
 
   wait_exit
     Block until redis instance exited. This method is useful to use this
-    module with Proclet or domething daemon management modules.
+    module with Proclet or something daemon management modules.
 
 SEE ALSO
     Test::mysqld for mysqld.

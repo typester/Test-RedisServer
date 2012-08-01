@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Any::Moose;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Carp;
 use File::Temp;
