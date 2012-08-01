@@ -150,6 +150,20 @@ sub stop {
     $self->pid(undef);
 }
 
+sub wait_exit {
+    my ($self) = @_;
+
+    local $?;
+
+    my $kid;
+    do {
+        $kid = waitpid($self->pid, WNOHANG);
+        sleep 0.1;
+    } while $kid <= 0;
+
+    $self->pid(undef);
+}
+
 sub connect_info {
     my ($self) = @_;
 
@@ -268,6 +282,10 @@ This parameter is designed to pass directly to L<Redis> module.
 
     my $redis_server = Test::RedisServer->new;
     my $redis = Redis->new( $redis_server->connect_info );
+
+=head2 wait_exit
+
+Block until redis instance exited. This method is useful to use this module with L<Proclet> or something daemon management modules.
 
 =head1 SEE ALSO
 
