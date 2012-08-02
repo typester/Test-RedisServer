@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::RedisServer
 
+0.03 2012-08-02T15:27:55+09:00
+     - don't listen tcp port by default.
+
 0.02 2012-08-01T16:29:38+09:00
      - added wait_exit method
 

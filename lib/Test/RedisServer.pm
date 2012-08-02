@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Any::Moose;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Carp;
 use File::Temp;
@@ -45,6 +45,7 @@ sub BUILD {
     my $tmpdir = $self->_tmpdir;
     unless (defined $self->conf->{port} or defined $self->conf->{unixsocket}) {
         $self->conf->{unixsocket} = "$tmpdir/redis.sock";
+        $self->conf->{port} = '0';
     }
 
     if ($self->conf->{loglevel} and $self->conf->{loglevel} eq 'warning') {
