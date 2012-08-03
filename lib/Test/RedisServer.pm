@@ -293,6 +293,10 @@ This parameter is designed to pass directly to L<Redis> module.
     my $redis_server = Test::RedisServer->new;
     my $redis = Redis->new( $redis_server->connect_info );
 
+=head2 pid
+
+Return redis-server instance's process id, or undef when redis-server is not running.
+
 =head2 wait_exit
 
 Block until redis instance exited. This method is useful to use this module with L<Proclet> or something daemon management modules.
