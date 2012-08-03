@@ -73,6 +73,10 @@ METHODS
         my $redis_server = Test::RedisServer->new;
         my $redis = Redis->new( $redis_server->connect_info );
 
+  pid
+    Return redis-server instance's process id, or undef when redis-server is
+    not running.
+
   wait_exit
     Block until redis instance exited. This method is useful to use this
     module with Proclet or something daemon management modules.
