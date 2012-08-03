@@ -11,6 +11,6 @@ eval {
     $server = Test::RedisServer->new;
 };
 ok !$server, 'server does not created ok';
-like $@, qr/^Can't exec "redis-server": No such file or directory/m, 'error msg ok';
+like $@, qr/^exec failed: no such file or directory/m, 'error msg ok';
 
 done_testing;

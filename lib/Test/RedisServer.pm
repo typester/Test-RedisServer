@@ -9,6 +9,7 @@ use Carp;
 use File::Temp;
 use POSIX qw(SIGTERM WNOHANG);
 use Time::HiRes qw(sleep);
+use Errno ();
 
 has auto_start => (
     is      => 'rw',
@@ -84,7 +85,15 @@ sub start {
         close $conffh;
 
         exec 'redis-server', "$tmpdir/redis.conf"
-            or exit($?);
+            or do {
+                if ($! == Errno::ENOENT) {
+                    print STDERR "exec failed: no such file or directory\n";
+                }
+                else {
+                    print STDERR "exec failed: unexpected error: $!\n";
+                }
+                exit($?);
+            }
     }
     close $logfh;
 
