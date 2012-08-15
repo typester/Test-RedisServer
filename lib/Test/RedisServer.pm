@@ -128,7 +128,7 @@ sub start {
         if ($self->pid) {
             $self->pid(undef);
             kill SIGTERM, $pid;
-            while (waitpid($self->pid, 0) <= 0) {
+            while (waitpid($pid, 0) <= 0) {
             }
         }
 
