@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Any::Moose;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Carp;
 use File::Temp;
@@ -166,8 +166,9 @@ sub wait_exit {
     local $?;
 
     my $kid;
+    my $pid = $self->pid;
     do {
-        $kid = waitpid($self->pid, WNOHANG);
+        $kid = waitpid($pid, WNOHANG);
         sleep 0.1;
     } while $kid <= 0;
 
