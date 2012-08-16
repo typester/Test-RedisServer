@@ -30,8 +30,8 @@ METHODS
     *   auto_start => 0 | 1 (Default: 1)
 
         Automatically start redis-server instance (by default). You can
-        disable this feature by "<auto_start =" 0>>, and start instance
-        manually by "start" method below.
+        disable this feature by "auto_start => 0", and start instance
+        manually by "start" or "exec" method below.
 
     *   conf => 'HashRef'
 
@@ -59,6 +59,26 @@ METHODS
   start
     Start redis-server instance manually.
 
+  exec
+    Just exec to redis-server instance. This method is useful to use this
+    module with Test::TCP, Proclet or etc.
+
+        use Test::TCP;
+        test_tcp(
+            client => sub {
+                my ($port, $server_pid) = @_;
+                ...
+            },
+            server => sub {
+                my ($port) = @_;
+                my $redis = Test::RedisServer->new(
+                    auto_start => 0,
+                    conf       => { port => $port },
+                );
+                $redis->exec;
+            },
+        );
+
   stop
     Stop redis-server instance.
 
@@ -78,8 +98,7 @@ METHODS
     not running.
 
   wait_exit
-    Block until redis instance exited. This method is useful to use this
-    module with Proclet or something daemon management modules.
+    Block until redis instance exited.
 
 SEE ALSO
     Test::mysqld for mysqld.

@@ -79,21 +79,7 @@ sub start {
     if ($pid == 0) {
         open STDOUT, '>&', $logfh or croak "dup(2) failed:$!";
         open STDERR, '>&', $logfh or croak "dup(2) failed:$!";
-
-        open my $conffh, '>', "$tmpdir/redis.conf" or croak "cannot write conf: $!";
-        print $conffh $self->_conf_string;
-        close $conffh;
-
-        exec 'redis-server', "$tmpdir/redis.conf"
-            or do {
-                if ($! == Errno::ENOENT) {
-                    print STDERR "exec failed: no such file or directory\n";
-                }
-                else {
-                    print STDERR "exec failed: unexpected error: $!\n";
-                }
-                exit($?);
-            }
+        $self->exec;
     }
     close $logfh;
 
@@ -143,6 +129,27 @@ sub start {
     }
 
     $self->pid($pid);
+}
+
+sub exec {
+    my ($self) = @_;
+
+    my $tmpdir = $self->_tmpdir;
+
+    open my $conffh, '>', "$tmpdir/redis.conf" or croak "cannot write conf: $!";
+    print $conffh $self->_conf_string;
+    close $conffh;
+
+    exec 'redis-server', "$tmpdir/redis.conf"
+        or do {
+            if ($! == Errno::ENOENT) {
+                print STDERR "exec failed: no such file or directory\n";
+            }
+            else {
+                print STDERR "exec failed: unexpected error: $!\n";
+            }
+            exit($?);
+        };
 }
 
 sub stop {
@@ -249,7 +256,7 @@ Available options are:
 =item * auto_start => 0 | 1 (Default: 1)
 
 Automatically start redis-server instance (by default).
-You can disable this feature by C<<auto_start => 0>>, and start instance manually by C<start> method below.
+You can disable this feature by C<< auto_start => 0 >>, and start instance manually by C<start> or C<exec> method below.
 
 =item * conf => 'HashRef'
 
@@ -279,6 +286,26 @@ Timeout seconds detecting redis-server is awake or not. (Default: 3)
 
 Start redis-server instance manually.
 
+=head2 exec
+
+Just exec to redis-server instance. This method is useful to use this module with L<Test::TCP>, L<Proclet> or etc.
+
+    use Test::TCP;
+    test_tcp(
+        client => sub {
+            my ($port, $server_pid) = @_;
+            ...
+        },
+        server => sub {
+            my ($port) = @_;
+            my $redis = Test::RedisServer->new(
+                auto_start => 0,
+                conf       => { port => $port },
+            );
+            $redis->exec;
+        },
+    );
+
 =head2 stop
 
 Stop redis-server instance.
@@ -300,7 +327,7 @@ Return redis-server instance's process id, or undef when redis-server is not run
 
 =head2 wait_exit
 
-Block until redis instance exited. This method is useful to use this module with L<Proclet> or something daemon management modules.
+Block until redis instance exited. 
 
 =head1 SEE ALSO
 
