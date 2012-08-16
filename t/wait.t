@@ -24,5 +24,26 @@ $server->wait_exit;
 pass 'process exited';
 is $server->pid, undef, 'no pid ok';
 
+
+$pid = fork;
+die 'fork failed' unless defined $pid;
+
+if ($pid == 0) {
+    # child
+    my $redis = Test::RedisServer->new;
+    local $SIG{TERM} = sub { $redis->stop };
+    $redis->wait_exit;
+    exit(0);
+}
+else {
+    sleep 1;
+    kill SIGTERM, $pid;
+    while (waitpid($pid, 0) >= 0) {
+    }
+    pass 'redis exit ok';
+}
+
+
+
 done_testing;
     

@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::RedisServer
 
+0.08 2012-08-16T12:46:15+09:00
+     - fixed wait_exit inf loop
+
 0.07 2012-08-16T11:06:23+09:00
      - added exec method
 
