@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::RedisServer
 
+0.09 2012-08-31T11:17:24+09:00
+     - set dir parameter if not already set so that tests are more repeatable if the use save()
+       (Jeremy Zawodny)
+
 0.08 2012-08-16T12:46:15+09:00
      - fixed wait_exit inf loop
 
