@@ -49,6 +49,10 @@ sub BUILD {
         $self->conf->{port} = '0';
     }
 
+    unless (defined $self->conf->{dir}) {
+        $self->conf->{dir} = "$tmpdir/";
+    }
+
     if ($self->conf->{loglevel} and $self->conf->{loglevel} eq 'warning') {
         warn "Test::RedisServer does not support \"loglevel warning\", using \"notice\" instead.\n";
         $self->conf->{loglevel} = 'notice';
