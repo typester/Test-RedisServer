@@ -9,8 +9,6 @@ BEGIN {
     );
     my @not_available;
 
-    push @not_available, 'Module::Install';
-
     {
         local *STDOUT;
         eval qq{use inc::Module::Install; 1;} or push @not_available, 'inc::Module::Install';
