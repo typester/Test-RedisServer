@@ -40,7 +40,7 @@ requires 'File::Temp' => '0.19'; # newdir
 requires 'Any::Moose' => '0.18';
 
 readme_from 'lib/Test/RedisServer.pm';
-author_tests 'xt';
+author_tests 'xt' unless $ENV{TRAVIS};
 auto_set_repository;
 
 WriteAll;
