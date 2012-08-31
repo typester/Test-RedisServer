@@ -27,6 +27,7 @@ BEGIN {
 }
 
 use inc::Module::Install;
+$Module::Install::AUTHOR = 0 if $ENV{TRAVIS};
 
 name 'Test-RedisServer';
 all_from 'lib/Test/RedisServer.pm';
@@ -40,7 +41,7 @@ requires 'File::Temp' => '0.19'; # newdir
 requires 'Any::Moose' => '0.18';
 
 readme_from 'lib/Test/RedisServer.pm';
-author_tests 'xt' unless $ENV{TRAVIS};
+author_tests 'xt';
 auto_set_repository;
 
 WriteAll;
