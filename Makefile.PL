@@ -32,7 +32,7 @@ $Module::Install::AUTHOR = 0 if $ENV{TRAVIS};
 name 'Test-RedisServer';
 all_from 'lib/Test/RedisServer.pm';
 
-test_requires 'Redis';
+test_requires 'Redis' => '1.925'; # unix socket supported version
 test_requires 'Test::More' => '0.86';
 test_requires 'Test::TCP'  => '1.17';
 
