@@ -118,7 +118,7 @@ sub start {
         if ($self->pid) {
             $self->pid(undef);
             kill SIGTERM, $pid;
-            while (waitpid($pid, 0) >= 0) {
+            while (waitpid($pid, WNOHANG) >= 0) {
             }
         }
 
@@ -165,7 +165,7 @@ sub stop {
     $sig ||= SIGTERM;
 
     kill $sig, $self->pid;
-    while (waitpid($self->pid, 0) >= 0) {
+    while (waitpid($self->pid, WNOHANG) >= 0) {
     }
 
     $self->pid(undef);
