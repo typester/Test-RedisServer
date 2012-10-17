@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::RedisServer
 
+0.12 2012-10-17T13:37:15+09:00
+     - workaround perl SEGV (perlbug #115206) on Makefile.PL
+
 0.11 2012-09-19T08:20:02+09:00
      - make all waitpid non-blocking
 
