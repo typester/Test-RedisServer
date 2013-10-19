@@ -31,7 +31,7 @@ has timeout => (
     default => 3,
 );
 
-has _tmpdir => (
+has tmpdir  => (
     is         => 'rw',
     lazy_build => 1,
 );
@@ -43,7 +43,7 @@ sub BUILD {
 
     $self->_owner_pid($$);
 
-    my $tmpdir = $self->_tmpdir;
+    my $tmpdir = $self->tmpdir;
     unless (defined $self->conf->{port} or defined $self->conf->{unixsocket}) {
         $self->conf->{unixsocket} = "$tmpdir/redis.sock";
         $self->conf->{port} = '0';
@@ -73,7 +73,7 @@ sub start {
 
     return if defined $self->pid;
 
-    my $tmpdir = $self->_tmpdir;
+    my $tmpdir = $self->tmpdir;
     open my $logfh, '>>', "$tmpdir/redis-server.log"
         or croak "failed to create log file: $tmpdir/redis-server.log";
 
@@ -138,7 +138,7 @@ sub start {
 sub exec {
     my ($self) = @_;
 
-    my $tmpdir = $self->_tmpdir;
+    my $tmpdir = $self->tmpdir;
 
     open my $conffh, '>', "$tmpdir/redis.conf" or croak "cannot write conf: $!";
     print $conffh $self->_conf_string;
@@ -201,7 +201,7 @@ sub connect_info {
     }
 }
 
-sub _build__tmpdir {
+sub _build_tmpdir {
     File::Temp->newdir( CLEANUP => 1 );
 }
 
@@ -284,6 +284,10 @@ Your conf parameter will be:
 
 Timeout seconds detecting redis-server is awake or not. (Default: 3)
 
+=item * tmpdir => 'String'
+
+Temporal directory, where redis config will be stored. By default it is created for you, but you start Test::RedisServer via exec (e.g. with Test::TCP), you should provide it to be automatically deleted:
+
 =back
 
 =head2 start
@@ -294,7 +298,10 @@ Start redis-server instance manually.
 
 Just exec to redis-server instance. This method is useful to use this module with L<Test::TCP>, L<Proclet> or etc.
 
+    use File::Temp;
     use Test::TCP;
+    my $tmp_dir = File::Temp->newdir( CLEANUP => 1 );
+
     test_tcp(
         client => sub {
             my ($port, $server_pid) = @_;
@@ -305,6 +312,7 @@ Just exec to redis-server instance. This method is useful to use this module wit
             my $redis = Test::RedisServer->new(
                 auto_start => 0,
                 conf       => { port => $port },
+                tmpdir     => $tmp_dir,
             );
             $redis->exec;
         },
