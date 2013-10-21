@@ -56,6 +56,12 @@ METHODS
 
         Timeout seconds detecting redis-server is awake or not. (Default: 3)
 
+    *   tmpdir => 'String'
+
+        Temporal directory, where redis config will be stored. By default it
+        is created for you, but you start Test::RedisServer via exec (e.g.
+        with Test::TCP), you should provide it to be automatically deleted:
+
   start
     Start redis-server instance manually.
 
@@ -63,7 +69,10 @@ METHODS
     Just exec to redis-server instance. This method is useful to use this
     module with Test::TCP, Proclet or etc.
 
+        use File::Temp;
         use Test::TCP;
+        my $tmp_dir = File::Temp->newdir( CLEANUP => 1 );
+
         test_tcp(
             client => sub {
                 my ($port, $server_pid) = @_;
@@ -74,6 +83,7 @@ METHODS
                 my $redis = Test::RedisServer->new(
                     auto_start => 0,
                     conf       => { port => $port },
+                    tmpdir     => $tmp_dir,
                 );
                 $redis->exec;
             },

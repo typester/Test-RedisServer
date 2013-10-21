@@ -21,6 +21,7 @@ README
 t/basic.t
 t/manual_start.t
 t/no_server.t
+t/tmp_dir.t
 t/unknown_conf.t
 t/wait.t
 xt/pod.t

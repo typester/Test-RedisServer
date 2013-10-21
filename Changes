@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::RedisServer
 
+0.13 2013-10-21T20:55:00+09:00
+     - make tmp_dir attribute public (basiliscos)
+
 0.12 2012-10-17T13:37:15+09:00
      - workaround perl SEGV (perlbug #115206) on Makefile.PL
 
