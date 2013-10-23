@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::RedisServer
 
+0.14 2013-10-21T12:56:00+09:00
+     - remove Path::Class dependency from new test added 0.13
+
 0.13 2013-10-21T20:55:00+09:00
      - make tmp_dir attribute public (basiliscos)
 
