@@ -10,7 +10,7 @@ my $server;
 eval {
     $server = Test::RedisServer->new;
 };
-ok !$server, 'server does not created ok';
+ok !$server, 'server was not created ok';
 like $@, qr/^exec failed: no such file or directory/m, 'error msg ok';
 
 done_testing;

@@ -13,7 +13,7 @@ my $redis;
 eval {
     $redis = Redis->new($server->connect_info);
 };
-ok !$redis, 'redis client object does not created ok';
+ok !$redis, 'redis client object was not created ok';
 like $@, qr/Could not connect to Redis server/, 'error msg ok';
 
 $server->start;
