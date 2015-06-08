@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More;
+use Test::More 0.98;
 use Test::TCP;
 
 use Redis;
@@ -13,7 +13,7 @@ my $server = Test::RedisServer->new;
 ok $server->pid, 'pid ok';
 
 my %connect_info = $server->connect_info;
-like $connect_info{sock}, qr!/redis\.sock$!, 'unix socket ok';
+like $connect_info{sock}, qr{/redis\.sock$}, 'unix socket ok';
 ok !$connect_info{server}, 'server key does not exist ok';
 
 my $redis = Redis->new(%connect_info);

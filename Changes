@@ -1,5 +1,7 @@
 Revision history for Perl extension Test::RedisServer
 
+{{$NEXT}}
+
 0.14 2013-10-21T12:56:00+09:00
      - remove Path::Class dependency from new test added 0.13
 
