@@ -15,4 +15,4 @@ redis
 conf
 memcached
 mysqld
-
+tmpdir

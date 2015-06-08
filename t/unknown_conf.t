@@ -13,7 +13,7 @@ eval {
     });
 };
 
-ok !$server, 'server does not initialize ok';
+ok !$server, 'server did not initialize ok';
 like $@, qr/\*\*\* FATAL CONFIG FILE ERROR \*\*\*/, 'error msg ok';
 
 done_testing;

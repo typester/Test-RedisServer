@@ -14,13 +14,13 @@ ok $server->pid, 'pid ok';
 
 my %connect_info = $server->connect_info;
 like $connect_info{sock}, qr!/redis\.sock$!, 'unix socket ok';
-ok !$connect_info{server}, 'server key does not exists ok';
+ok !$connect_info{server}, 'server key does not exist ok';
 
 my $redis = Redis->new(%connect_info);
 is $redis->ping, 'PONG', 'ping pong ok';
 
 $server->stop;
-is $server->pid, undef, 'pid remove ok';
+is $server->pid, undef, 'pid removed ok';
 is $redis->ping, undef, 'no server available ok';
 
 # port
@@ -32,7 +32,7 @@ $server = Test::RedisServer->new(conf => {
 ok $server->pid, 'pid ok';
 
 %connect_info = $server->connect_info;
-ok !$connect_info{sock}, 'sock does not exists ok';
+ok !$connect_info{sock}, 'sock does not exist ok';
 is $connect_info{server}, '127.0.0.1:' . $port, 'server addr ok';
 
 $redis = Redis->new(%connect_info);

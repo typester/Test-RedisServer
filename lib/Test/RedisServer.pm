@@ -235,7 +235,7 @@ Test::RedisServer - redis-server runner for tests.
     my $redis_server;
     eval {
         $redis_server = Test::RedisServer->new;
-    } or plan skip_all => 'redis-server is required to this test';
+    } or plan skip_all => 'redis-server is required for this test';
     
     my $redis = Redis->new( $redis_server->connect_info );
     
@@ -251,7 +251,7 @@ Test::RedisServer - redis-server runner for tests.
 
     my $redis_server = Test::RedisServer->new(%options);
 
-Create a new redis-server instance, and start it by default (auto_start option avoid this)
+Create a new redis-server instance, and start it by default (use auto_start option to avoid this)
 
 Available options are:
 
@@ -264,7 +264,7 @@ You can disable this feature by C<< auto_start => 0 >>, and start instance manua
 
 =item * conf => 'HashRef'
 
-This is redis.conf key value pair. Any key-value pair supported that redis-server supports.
+This is a redis.conf key value pair. You can use any key-value pair(s) that redis-server supports.
 
 If you want to use this redis.conf:
 
@@ -282,11 +282,11 @@ Your conf parameter will be:
 
 =item * timeout => 'Int'
 
-Timeout seconds detecting redis-server is awake or not. (Default: 3)
+Timeout seconds for detecting if redis-server is awake or not. (Default: 3)
 
 =item * tmpdir => 'String'
 
-Temporal directory, where redis config will be stored. By default it is created for you, but you start Test::RedisServer via exec (e.g. with Test::TCP), you should provide it to be automatically deleted:
+Temporal directory, where redis config will be stored. By default it is created for you, but if you start Test::RedisServer via exec (e.g. with Test::TCP), you should provide it to be automatically deleted:
 
 =back
 
@@ -322,7 +322,7 @@ Just exec to redis-server instance. This method is useful to use this module wit
 
 Stop redis-server instance.
 
-This method automatically called when object was DESTROY.
+This method is automatically called from object destructor, DESTROY.
 
 =head2 connect_info
 
@@ -347,7 +347,7 @@ L<Test::mysqld> for mysqld.
 
 L<Test::Memcached> for Memcached.
 
-This module steals lots of stuffs from above modules.
+This module steals lots of stuff from above modules.
 
 L<Test::Mock::Redis>, another approach for testing redis application.
 
