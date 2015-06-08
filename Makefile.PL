@@ -39,7 +39,7 @@ test_requires 'Test::TCP'  => '1.17';
 
 requires 'perl'       => '5.008001';
 requires 'File::Temp' => '0.19'; # newdir
-requires 'Any::Moose' => '0.18';
+requires 'Mouse';
 
 readme_from 'lib/Test/RedisServer.pm';
 author_tests 'xt';

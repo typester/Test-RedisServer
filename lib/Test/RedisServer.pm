@@ -1,7 +1,7 @@
 package Test::RedisServer;
 use strict;
 use warnings;
-use Any::Moose;
+use Mouse;
 
 our $VERSION = '0.14';
 
@@ -36,7 +36,7 @@ has tmpdir  => (
     lazy_build => 1,
 );
 
-no Any::Moose;
+no Mouse;
 
 sub BUILD {
     my ($self) = @_;
