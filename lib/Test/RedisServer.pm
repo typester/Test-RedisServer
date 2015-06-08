@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Mouse;
 
-our $VERSION = '0.14';
+our $VERSION = '0.20';
 
 use Carp;
 use File::Temp;
@@ -221,6 +221,8 @@ sub _conf_string {
 __PACKAGE__->meta->make_immutable;
 
 __END__
+
+=for stopwords redis redis-server mysqld tmpdir destructor
 
 =head1 NAME
 

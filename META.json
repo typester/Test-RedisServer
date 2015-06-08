@@ -68,7 +68,7 @@
          "web" : "https://github.com/typester/Test-RedisServer"
       }
    },
-   "version" : "0.14",
+   "version" : "0.20",
    "x_authority" : "cpan:TYPESTER",
    "x_contributors" : [
       "Jeremy Zawodny <jzawodn@craigslist.org>",
