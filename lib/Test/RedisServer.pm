@@ -105,7 +105,8 @@ sub start {
 
             # confirmed this message is included from v1.3.6 (older version in git repo)
             #   to current HEAD (2012-07-30)
-            if ($log =~ /The server is now ready to accept connections/) {
+            # The message has changed a bit with Redis 4.x, make regexp a bit more flexible
+            if ( $log =~ m/ready.+accept.+connections/i ) {
                 $ready = 1;
                 last;
             }
