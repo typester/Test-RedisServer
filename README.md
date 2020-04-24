@@ -1,4 +1,4 @@
-# NAME
+# REDIS SERVER modifié
 
 Test::RedisServer - redis-server runner for tests.
 
