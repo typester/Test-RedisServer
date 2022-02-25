@@ -2,6 +2,9 @@ Revision history for Perl extension Test::RedisServer
 
 {{$NEXT}}
 
+0.22 2022-02-25T01:45:52Z
+    - Update regexp for redis error messages (gregoa, davidcantrell-bb)
+
 0.21 2017-09-14T10:33:42Z
     - Fixed detection of Redis ready state reached, which changed with Redis 4.x (issue #6)
       (Robin Smidsrød)
