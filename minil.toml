@@ -1,3 +1,5 @@
 name = "Test-RedisServer"
 authority="cpan:TYPESTER"
 module_maker="ModuleBuildTiny"
+badges = ["github-actions"]
+markdown_maker = "Pod::Markdown::Github"

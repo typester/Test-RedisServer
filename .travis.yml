@@ -1,6 +1,0 @@
-language: "perl"
-arch:
-    - AMD64
-    - ppc64le
-before_install:
-    - perl Makefile.PL | cpanm
