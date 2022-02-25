@@ -1,23 +1,26 @@
+[![Actions Status](https://github.com/typester/Test-RedisServer/workflows/test/badge.svg)](https://github.com/typester/Test-RedisServer/actions)
 # NAME
 
 Test::RedisServer - redis-server runner for tests.
 
 # SYNOPSIS
 
-    use Redis;
-    use Test::RedisServer;
-    use Test::More;
-    
-    my $redis_server;
-    eval {
-        $redis_server = Test::RedisServer->new;
-    } or plan skip_all => 'redis-server is required for this test';
-    
-    my $redis = Redis->new( $redis_server->connect_info );
-    
-    is $redis->ping, 'PONG', 'ping pong ok';
-    
-    done_testing;
+```perl
+use Redis;
+use Test::RedisServer;
+use Test::More;
+
+my $redis_server;
+eval {
+    $redis_server = Test::RedisServer->new;
+} or plan skip_all => 'redis-server is required for this test';
+
+my $redis = Redis->new( $redis_server->connect_info );
+
+is $redis->ping, 'PONG', 'ping pong ok';
+
+done_testing;
+```
 
 # DESCRIPTION
 
@@ -25,7 +28,9 @@ Test::RedisServer - redis-server runner for tests.
 
 ## new(%options)
 
-    my $redis_server = Test::RedisServer->new(%options);
+```perl
+my $redis_server = Test::RedisServer->new(%options);
+```
 
 Create a new redis-server instance, and start it by default (use auto\_start option to avoid this)
 
@@ -42,17 +47,21 @@ Available options are:
 
     If you want to use this redis.conf:
 
-        port 9999
-        databases 16
-        save 900 1
+    ```
+    port 9999
+    databases 16
+    save 900 1
+    ```
 
     Your conf parameter will be:
 
-        Test::RedisServer->new( conf => {
-            port      => 9999,
-            databases => 16,
-            save      => '900 1',
-        });
+    ```perl
+    Test::RedisServer->new( conf => {
+        port      => 9999,
+        databases => 16,
+        save      => '900 1',
+    });
+    ```
 
 - timeout => 'Int'
 
@@ -70,25 +79,27 @@ Start redis-server instance manually.
 
 Just exec to redis-server instance. This method is useful to use this module with [Test::TCP](https://metacpan.org/pod/Test%3A%3ATCP), [Proclet](https://metacpan.org/pod/Proclet) or etc.
 
-    use File::Temp;
-    use Test::TCP;
-    my $tmp_dir = File::Temp->newdir( CLEANUP => 1 );
+```perl
+use File::Temp;
+use Test::TCP;
+my $tmp_dir = File::Temp->newdir( CLEANUP => 1 );
 
-    test_tcp(
-        client => sub {
-            my ($port, $server_pid) = @_;
-            ...
-        },
-        server => sub {
-            my ($port) = @_;
-            my $redis = Test::RedisServer->new(
-                auto_start => 0,
-                conf       => { port => $port },
-                tmpdir     => $tmp_dir,
-            );
-            $redis->exec;
-        },
-    );
+test_tcp(
+    client => sub {
+        my ($port, $server_pid) = @_;
+        ...
+    },
+    server => sub {
+        my ($port) = @_;
+        my $redis = Test::RedisServer->new(
+            auto_start => 0,
+            conf       => { port => $port },
+            tmpdir     => $tmp_dir,
+        );
+        $redis->exec;
+    },
+);
+```
 
 ## stop
 
@@ -102,8 +113,10 @@ Return connection info for client library to connect this redis-server instance.
 
 This parameter is designed to pass directly to [Redis](https://metacpan.org/pod/Redis) module.
 
-    my $redis_server = Test::RedisServer->new;
-    my $redis = Redis->new( $redis_server->connect_info );
+```perl
+my $redis_server = Test::RedisServer->new;
+my $redis = Redis->new( $redis_server->connect_info );
+```
 
 ## pid
 
