@@ -29,6 +29,7 @@
       "configure" : {
          "requires" : {
             "Module::Build::Tiny" : "0.035",
+            "Redis" : "0",
             "perl" : "5.008_001"
          }
       },
@@ -50,7 +51,6 @@
       },
       "test" : {
          "requires" : {
-            "Redis" : "0",
             "Test::More" : "0.98",
             "Test::TCP" : "0"
          }
@@ -68,11 +68,12 @@
          "web" : "https://github.com/typester/Test-RedisServer"
       }
    },
-   "version" : "0.22",
+   "version" : "0.23",
    "x_authority" : "cpan:TYPESTER",
    "x_contributors" : [
       "Daisuke Murase <typester@gmail.com>",
       "David Cantrell <david.cantrell@broadbean.com>",
+      "Devendranath Thadi <devendranath.thadi3@gmail.com>",
       "Ivan Baidakou <dmol@gmx.com>",
       "Jeremy Zawodny <jzawodn@craigslist.org>",
       "Masayuki Matsuki <y.songmu@gmail.com>",
