@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Mouse;
 
-our $VERSION = '0.24';
+our $VERSION = '0.25';
 
 use Carp;
 use File::Temp;
